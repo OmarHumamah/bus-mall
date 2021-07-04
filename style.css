@@ -1,0 +1,55 @@
+*{
+    font-family: 'Ubuntu', sans-serif;
+}
+body{
+    background-color: rgb(217, 255, 242);
+}
+img{
+    width: 300px;
+    border-style: solid;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    max-height: 300px;
+
+}
+header{
+    background-color: rgb(37, 122, 122);
+    height: 75px;
+}
+
+h1{
+    position: relative;
+    left: 6px;
+    bottom: -22px;
+    color: rgb(169, 250, 223);
+}
+
+#images{
+    position: absolute;
+    right: 0%;
+    top: 36%;
+}
+#results{
+    width: 30%;
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 1.7;
+}
+input{
+    position: absolute;
+    left: 2px;
+    bottom: -89px;
+    width: 936px;
+    height: 71px;
+    cursor: pointer;
+    background-color: rgb(243, 94, 94);
+    font-size: 40px;
+    font-weight: bold;
+    border-style: none;
+    color: rgb(248, 255, 190);
+}
+input:hover{
+    background-color: rgb(199, 53, 53);
+    transition: 350ms;
+}
