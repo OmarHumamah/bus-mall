@@ -53,3 +53,10 @@ input:hover{
     background-color: rgb(199, 53, 53);
     transition: 350ms;
 }
+
+#chart{
+    display: none;
+    background-image: url(https://cdn.dribbble.com/users/1187836/screenshots/7049426/media/7b3ab8c1fff5cdb8fa3e2fcc53c18dfb.gif);
+    background-repeat: no-repeat;
+    background-size: 36cm 16.9cm;
+}
