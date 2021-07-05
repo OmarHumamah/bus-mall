@@ -7,18 +7,21 @@ let middleI = document.createElement('img')
 imgSection.appendChild(middleI)
 let rightI = document.createElement('img')
 imgSection.appendChild(rightI)
-console.log(imgSection);
+// console.log(imgSection);
 
 
 const maxClicks = 25;
 let counter = 0;
-
+let arrayOfNames = [];
+let numberOfVotes = [];
+let numberOfShow = [];
 function Items(name, path,) {
     this.name = name;
     this.path = path;
     this.showingT = 0;
     this.vote = 0;
     Items.iArray.push(this);
+    arrayOfNames.push(this.name)
 }
 
 Items.iArray = []
@@ -43,29 +46,43 @@ new Items('unicorn', 'images/unicorn.jpg');
 new Items('water-can', 'images/water-can.jpg');
 new Items('wine-glass', 'images/wine-glass.jpg');
 
-console.log(Items.iArray);
+// console.log(Items.iArray);
 
 function generateRandomIndex() {
     return Math.floor(Math.random() * Items.iArray.length);
 }
 
-console.log(generateRandomIndex());
 
 let leftI_
 let middleI_
 let rightI_
-
+let preLeftI_ = -1;
+let preMiddleI_ = -1;
+let preRightI_ = -1;
+let checkerIndexesArray;
 function render3Imgs() {
+    checkerIndexesArray = [preLeftI_, preMiddleI_, preRightI_]
+
     leftI_ = generateRandomIndex();
-    middleI_ = generateRandomIndex();
-    rightI_ = generateRandomIndex();
-    while (middleI_ === rightI_) {
-        middleI_ = generateRandomIndex();
-    }
-    while (leftI_ === middleI_ || leftI_ === rightI_) {
+    console.log([leftI_]);
+    while (checkerIndexesArray.includes(leftI_)) {
         leftI_ = generateRandomIndex();
     }
-    //i think we should add the show times here
+    middleI_ = generateRandomIndex();
+    console.log([middleI_]);
+    while (checkerIndexesArray.includes(middleI_) || leftI_ === middleI_) {
+        middleI_ = generateRandomIndex();
+    }
+    rightI_ = generateRandomIndex();
+    console.log([rightI_]);
+    while (checkerIndexesArray.includes(rightI_) || middleI_ === rightI_ || leftI_ === rightI_) {
+        rightI_ = generateRandomIndex();
+    }
+
+    preLeftI_ = leftI_;
+    preMiddleI_ = middleI_;
+    preRightI_ = rightI_;
+
     Items.iArray[leftI_].showingT++;
     Items.iArray[middleI_].showingT++;
     Items.iArray[rightI_].showingT++;
@@ -76,8 +93,17 @@ function render3Imgs() {
     leftI.id = 'left';
     middleI.id = 'middle';
     rightI.id = 'right';
+
+    console.log(checkerIndexesArray);
+    console.log([leftI_, middleI_, rightI_]);
+
+
 }
+
 render3Imgs();
+
+
+
 
 leftI.addEventListener('click', reaction);
 middleI.addEventListener('click', reaction);
@@ -85,6 +111,7 @@ rightI.addEventListener('click', reaction);
 
 function reaction(event) {
     counter++;
+
     if (maxClicks >= counter) {
         if (event.target.id === 'left') {
             Items.iArray[leftI_].vote++;
@@ -94,13 +121,16 @@ function reaction(event) {
             Items.iArray[rightI_].vote++;
         }
         if (counter === maxClicks) {
+            const display = document.getElementById('chart')
             const btn = document.createElement('input');
             imgSection.appendChild(btn);
             btn.type = 'submit';
             btn.value = 'Show results';
             btn.addEventListener('click', show);
             function show() {
+                display.style.display = 'block'
                 renderResults();
+                getChart();
                 btn.removeEventListener('click', show);
                 leftI.removeEventListener('click', reaction);
                 middleI.removeEventListener('click', reaction);
@@ -108,20 +138,61 @@ function reaction(event) {
             }
 
         }
+        
         render3Imgs();
-    } 
-    console.log(counter);
-    console.log(Items.iArray);
+
+    }
+    // console.log(counter);
+    // console.log(Items.iArray);
 }
 
 function renderResults() {
     const list = document.getElementById('resultsL')
+
     for (let i = 0; i < Items.iArray.length; i++) {
-        let li = document.createElement('li')
-        list.appendChild(li)
+        numberOfVotes.push(Items.iArray[i].vote);
+        numberOfShow.push(Items.iArray[i].showingT);
+        let li = document.createElement('li');
+        list.appendChild(li);
         li.textContent = `${Items.iArray[i].name} had ${Items.iArray[i].vote} votes, and was seen ${Items.iArray[i].showingT} times.`
     }
     leftI.removeEventListener('click', reaction);
     middleI.removeEventListener('click', reaction);
     rightI.removeEventListener('click', reaction);
+}
+
+// console.log(numberOfVotes);
+function getChart() {
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: arrayOfNames,
+            datasets: [{
+                label: 'Number of Show',
+                data: numberOfShow,
+                backgroundColor: [
+                    'rgba(255, 0, 0, 0.8)',
+
+                ],
+                borderColor: [
+                    'rgba(0, 0, 0, 1)',
+                ],
+                borderWidth: 2
+            },
+            {
+                label: 'Number of Votes',
+                data: numberOfVotes,
+                backgroundColor: [
+                    'rgba(0, 0, 255, 0.8)',
+
+                ],
+                borderColor: [
+                    'rgba(0, 0, 0, 1)',
+                ],
+                borderWidth: 2
+            }]
+        },
+
+    });
 }
