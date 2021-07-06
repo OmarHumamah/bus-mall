@@ -111,7 +111,7 @@ rightI.addEventListener('click', reaction);
 
 function reaction(event) {
     counter++;
-
+    
     if (maxClicks >= counter) {
         if (event.target.id === 'left') {
             Items.iArray[leftI_].vote++;
@@ -136,7 +136,7 @@ function reaction(event) {
             }
 
         }
-
+        saveResults();
         render3Imgs();
 
     }
@@ -154,7 +154,7 @@ function renderResults() {
         list.appendChild(li);
         li.textContent = `${Items.iArray[i].name} had ${Items.iArray[i].vote} votes, and was seen ${Items.iArray[i].showingT} times.`
     }
-    saveResults();
+    
     leftI.removeEventListener('click', reaction);
     middleI.removeEventListener('click', reaction);
     rightI.removeEventListener('click', reaction);
