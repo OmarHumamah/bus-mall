@@ -138,7 +138,7 @@ function reaction(event) {
             }
 
         }
-        
+
         render3Imgs();
 
     }
@@ -156,6 +156,7 @@ function renderResults() {
         list.appendChild(li);
         li.textContent = `${Items.iArray[i].name} had ${Items.iArray[i].vote} votes, and was seen ${Items.iArray[i].showingT} times.`
     }
+    saveResults();
     leftI.removeEventListener('click', reaction);
     middleI.removeEventListener('click', reaction);
     rightI.removeEventListener('click', reaction);
@@ -196,3 +197,22 @@ function getChart() {
 
     });
 }
+function saveResults() {
+    let ConvArray = JSON.stringify(Items.iArray)
+    localStorage.setItem('results', ConvArray);
+}
+
+function getResults() {
+    let savedResults = localStorage.getItem('results');
+    let parsedResults = JSON.parse(savedResults);
+    if (parsedResults !== null) {
+        Items.iArray = parsedResults;
+    const display = document.getElementById('chart')
+    display.style.display = 'block'
+    renderResults();
+    getChart();
+    }
+    
+}
+
+getResults();
