@@ -132,9 +132,7 @@ function reaction(event) {
                 renderResults();
                 getChart();
                 btn.removeEventListener('click', show);
-                leftI.removeEventListener('click', reaction);
-                middleI.removeEventListener('click', reaction);
-                rightI.removeEventListener('click', reaction);
+               
             }
 
         }
@@ -205,12 +203,8 @@ function saveResults() {
 function getResults() {
     let savedResults = localStorage.getItem('results');
     let parsedResults = JSON.parse(savedResults);
-    if (parsedResults !== null) {
+    if (parsedResults) {
         Items.iArray = parsedResults;
-    const display = document.getElementById('chart')
-    display.style.display = 'block'
-    renderResults();
-    getChart();
     }
     
 }
