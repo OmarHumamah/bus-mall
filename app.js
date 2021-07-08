@@ -10,7 +10,7 @@ imgSection.appendChild(rightI)
 // console.log(imgSection);
 
 
-const maxClicks = 25;
+const maxClicks = 5;
 let counter = 0;
 let arrayOfNames = [];
 let numberOfVotes = [];
@@ -111,7 +111,7 @@ rightI.addEventListener('click', reaction);
 
 function reaction(event) {
     counter++;
-    
+
     if (maxClicks >= counter) {
         if (event.target.id === 'left') {
             Items.iArray[leftI_].vote++;
@@ -132,7 +132,7 @@ function reaction(event) {
                 renderResults();
                 getChart();
                 btn.removeEventListener('click', show);
-               
+
             }
 
         }
@@ -154,7 +154,7 @@ function renderResults() {
         list.appendChild(li);
         li.textContent = `${Items.iArray[i].name} had ${Items.iArray[i].vote} votes, and was seen ${Items.iArray[i].showingT} times.`
     }
-    
+
     leftI.removeEventListener('click', reaction);
     middleI.removeEventListener('click', reaction);
     rightI.removeEventListener('click', reaction);
@@ -162,37 +162,67 @@ function renderResults() {
 
 // console.log(numberOfVotes);
 function getChart() {
+    /* var ctx = document.getElementById('myChart');
+     var myChart = new Chart(ctx, {
+         type: 'bar',
+         data: {
+             labels: arrayOfNames,
+             datasets: [{
+                 label: 'Number of Show',
+                 data: numberOfShow,
+                 backgroundColor: [
+                     'rgba(255, 0, 0, 0.8)',
+ 
+                 ],
+                 borderColor: [
+                     'rgba(0, 0, 0, 1)',
+                 ],
+                 borderWidth: 2
+             },
+             {
+                 label: 'Number of Votes',
+                 data: numberOfVotes,
+                 backgroundColor: [
+                     'rgba(0, 0, 255, 0.8)',
+ 
+                 ],
+                 borderColor: [
+                     'rgba(0, 0, 0, 1)',
+                 ],
+                 borderWidth: 2
+             }]
+         },
+ 
+     });*/
+    //..
     var ctx = document.getElementById('myChart');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
+    var mixedChart = new Chart(ctx, {
         data: {
-            labels: arrayOfNames,
             datasets: [{
-                label: 'Number of Show',
-                data: numberOfShow,
-                backgroundColor: [
-                    'rgba(255, 0, 0, 0.8)',
-
-                ],
-                borderColor: [
-                    'rgba(0, 0, 0, 1)',
-                ],
-                borderWidth: 2
-            },
-            {
+                type: 'line',
                 label: 'Number of Votes',
                 data: numberOfVotes,
                 backgroundColor: [
-                    'rgba(0, 0, 255, 0.8)',
-
-                ],
+                    'rgba(255, 0, 0, 0.8)',],
+                borderWidth: 2,
                 borderColor: [
                     'rgba(0, 0, 0, 1)',
                 ],
-                borderWidth: 2
-            }]
+            },
+            {
+                type: 'bar',
+                label: 'Number of Show',
+                data: numberOfShow,
+                backgroundColor: [
+                    'rgba(0, 0, 255, 0.8)',],
+                borderWidth: 2,
+                borderColor: [
+                    'rgba(0, 0, 0, 1)',
+                ],
+            }],
+            labels: arrayOfNames,
+            
         },
-
     });
 }
 function saveResults() {
@@ -206,7 +236,7 @@ function getResults() {
     if (parsedResults) {
         Items.iArray = parsedResults;
     }
-    
+
 }
 
 getResults();

@@ -10,7 +10,7 @@ img{
     border-radius: 5px;
     margin: 5px;
     cursor: pointer;
-    max-height: 300px;
+    height: 300px;
 
 }
 header{
@@ -59,5 +59,9 @@ input:hover{
     display: none;
     background-image: url(https://cdn.dribbble.com/users/1187836/screenshots/7049426/media/7b3ab8c1fff5cdb8fa3e2fcc53c18dfb.gif);
     background-repeat: no-repeat;
-    background-size: 36cm 16.9cm;
+    background-size: cover;
+}
+
+#myChart{
+    height: 300px;
 }
