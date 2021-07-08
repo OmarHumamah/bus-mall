@@ -17,14 +17,16 @@ header{
     background-color: rgb(37, 122, 122);
     height: 75px;
 }
-
+#h3{
+    position: absolute;
+    left: 500px;
+}
 h1{
     position: relative;
     left: 6px;
     bottom: -22px;
     color: rgb(169, 250, 223);
 }
-
 #images{
     position: absolute;
     right: 0%;
@@ -53,7 +55,6 @@ input:hover{
     background-color: rgb(199, 53, 53);
     transition: 350ms;
 }
-
 #chart{
     display: none;
     background-image: url(https://cdn.dribbble.com/users/1187836/screenshots/7049426/media/7b3ab8c1fff5cdb8fa3e2fcc53c18dfb.gif);
