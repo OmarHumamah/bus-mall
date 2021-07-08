@@ -10,7 +10,7 @@ imgSection.appendChild(rightI)
 // console.log(imgSection);
 
 
-const maxClicks = 5;
+const maxClicks = 25;
 let counter = 0;
 let arrayOfNames = [];
 let numberOfVotes = [];
